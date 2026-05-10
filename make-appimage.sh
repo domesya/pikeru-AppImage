@@ -8,7 +8,7 @@ export ARCH VERSION
 export OUTPATH=./dist
 export ADD_HOOKS="self-updater.hook"
 export UPINFO="gh-releases-zsync|${GITHUB_REPOSITORY%/*}|${GITHUB_REPOSITORY#*/}|latest|*$ARCH.AppImage.zsync"
-export ICON=document-open
+export ICON=/usr/share/icons/Adwaita/scalable/actions/document-open-symbolic.svg
 export DESKTOP=./launcher.desktop
 
 # Deploy dependencies
