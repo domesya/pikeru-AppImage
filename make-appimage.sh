@@ -8,7 +8,7 @@ export ARCH VERSION
 export OUTPATH=./dist
 export ADD_HOOKS="self-updater.hook"
 export UPINFO="gh-releases-zsync|${GITHUB_REPOSITORY%/*}|${GITHUB_REPOSITORY#*/}|latest|*$ARCH.AppImage.zsync"
-export ICON=/usr/share/icons/hicolor/48x48/apps/system-file-manager.png
+export ICON=https://github.com/linuxmint/mint-y-icons/blob/master/usr/share/icons/Mint-Y/legacy/512/document-open.png
 export DESKTOP=./launcher.desktop
 
 # Deploy dependencies
