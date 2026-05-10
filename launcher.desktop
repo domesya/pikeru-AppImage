@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Pikeru
+Comment="File Picker with Good Thumbnails and Search"
+Exec=pikeru %U
+Icon=document-open
+Terminal=false
+Categories=Utility;Core;
+MimeType=inode/directory;
+Keywords=file;explorer;picker;select;
+StartupWMClass=pikeru
