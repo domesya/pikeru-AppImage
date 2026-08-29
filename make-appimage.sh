@@ -12,7 +12,9 @@ export ICON=https://github.com/linuxmint/mint-y-icons/blob/master/usr/share/icon
 export DESKTOP=./launcher.desktop
 export URUNTIME_PRELOAD=1
 # Deploy dependencies
-quick-sharun /usr/bin/pikeru
+quick-sharun \
+  /usr/bin/pikeru \
+  /usr/lib/xdg-desktop-portal-pikeru
 
 # Additional changes can be done in between here
 
