@@ -1,0 +1,56 @@
+#!/bin/sh
+#
+#  This hook is meant to install pikeru into the system its being ran on
+#
+
+
+_pikeru_init_install() {
+  # This is a special portal binary that's needed for the dbus service(?)
+  _portal_bin="${BINDIR}/xdg-desktop-portal-pikeru"
+  if [ ! -f "$_portal_bin" ]; then
+    cp "${APPDIR}/shared/bin/xdg-desktop-portal-pikeru"   "$_portal_bin"
+  fi
+
+  _dot_portal="${DATADIR}/xdg-desktop-portal/portals/pikeru.portal"
+  if [ ! -f "$_dot_portal" ]; then
+    cp "${APPDIR}/share/xdg-desktop-portal/portals/pikeru.portal"  "$_dot_portal"
+  fi
+
+  _pikeru_dir="${DATADIR}/xdg-desktop-portal-pikeru"
+  if [ ! -d "$_pikeru_dir" ]; then
+    cp -r "${APPDIR}/share/xdg-desktop-portal-pikeru/"  "_pikeru_dir"
+  fi
+    
+}
+
+_change_config() {
+  _config_file="{CONFIGDIR}/xdg-desktop-portal-pikeru/config"
+  if [ -f "$_config_file" ]; then
+
+  fi
+}
+
+  
+#
+# 2. Get xdg-desktop-portal-pikeru — the portal daemon. Options:
+# - Build from source: cargo build -r --bin portal → install to ~/.local/bin/xdg-desktop-portal-pikeru
+# - Or extract if bundled elsewhere
+# 3. Portal definition file at ~/.local/share/xdg-desktop-portal/portals/pikeru.portal:
+# [portal]
+# DBusName=org.freedesktop.impl.portal.desktop.pikeru
+# Interfaces=org.freedesktop.impl.portal.FileChooser;
+# UseIn=...your DEs...
+# 4. Systemd user service at ~/.config/systemd/user/xdg-desktop-portal-pikeru.service:
+# [Service]
+# Type=dbus
+# BusName=org.freedesktop.impl.portal.desktop.pikeru
+# ExecStart=%h/.local/bin/xdg-desktop-portal-pikeru
+# 5. Portal config at ~/.config/xdg-desktop-portal/portals.conf:
+# [preferred]
+# org.freedesktop.impl.portal.FileChooser=pikeru
+# 6. Filepicker config at ~/.config/xdg-desktop-portal-pikeru/config:
+# [filepicker]
+# cmd = /home/<user>/.local/bin/pikeru
+# 7. Enable and start:
+# systemctl --user --now enable xdg-desktop-portal-pikeru.service
+# systemctl --user restart xdg-desktop-portal.service
