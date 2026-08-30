@@ -54,32 +54,4 @@ EOF
   
 }
 
-#_main_func 
-
-
-
-
-  
-#
-# 2. Get xdg-desktop-portal-pikeru — the portal daemon. Options:
-# - Build from source: cargo build -r --bin portal → install to ~/.local/bin/xdg-desktop-portal-pikeru
-# - Or extract if bundled elsewhere
-# 3. Portal definition file at ~/.local/share/xdg-desktop-portal/portals/pikeru.portal:
-# [portal]
-# DBusName=org.freedesktop.impl.portal.desktop.pikeru
-# Interfaces=org.freedesktop.impl.portal.FileChooser;
-# UseIn=...your DEs...
-# 4. Systemd user service at ~/.config/systemd/user/xdg-desktop-portal-pikeru.service:
-# [Service]
-# Type=dbus
-# BusName=org.freedesktop.impl.portal.desktop.pikeru
-# ExecStart=%h/.local/bin/xdg-desktop-portal-pikeru
-# 5. Portal config at ~/.config/xdg-desktop-portal/portals.conf:
-# [preferred]
-# org.freedesktop.impl.portal.FileChooser=pikeru
-# 6. Filepicker config at ~/.config/xdg-desktop-portal-pikeru/config:
-# [filepicker]
-# cmd = /home/<user>/.local/bin/pikeru
-# 7. Enable and start:
-# systemctl --user --now enable xdg-desktop-portal-pikeru.service
-# systemctl --user restart xdg-desktop-portal.service
+_main_func 
