@@ -1,5 +1,3 @@
-# README
-
 
 
 <div align="center">
@@ -21,6 +19,8 @@
 
 </div>
 
+---
+## Manual steps
 ---
 
 Some manual tweaks that need to be done in order to have pikeru AppImage working as the file picker:
