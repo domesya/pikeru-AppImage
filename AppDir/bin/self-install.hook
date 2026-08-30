@@ -24,11 +24,12 @@ _pikeru_install() {
 
 _change_config() {
   # Assuming that pikeru will be in ~/.local/bin/pikeru
-  if [ -f "$_config_file" ]; then
-        
-  fi
+#   if [ -f "$_config_file" ]; then
+#         
+#   fi
+ 
   if [ -f "$_portals_conf" ]; then
-    sed -i 's|^\(org\.freedesktop\.impl\.portal\.FileChooser=\).*|\1pikeru|' "$_portals_conf"
+    sed -i 's|^\(org\.freedesktop\.impl\.portal\.FileChooser=\).*|\1pikeru|' "$_portals_conf" || :
   fi
 }
 
@@ -37,21 +38,23 @@ _main_func() {
     
   if [ ! -f "$_portal_bin" ] || [ ! -f "$_dot_portal" ] || [ ! -d "$_pikeru_dir" ]; then
     zenity --width 500 --question --text "$(cat <<-EOF
-    Do you wish to attempt to integrate pikeru into the system?
-    The following files/directories would be installed:
+Do you wish to attempt to integrate pikeru into the system?
+The following files/directories would be installed/altered:
     
-    * $_portal_bin
-    * $_dot_portal
-    * $_pikeru_dir
+* $_portal_bin
+* $_dot_portal
+* $_pikeru_dir
+* $_portals_conf
     
-    EOF
+EOF
     )" || return 1
     _pikeru_install
+    _change_config
   fi
   
 }
 
-# _main_func 
+#_main_func 
 
 
 
