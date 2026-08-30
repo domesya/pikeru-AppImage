@@ -9,7 +9,8 @@ export OUTPATH=./dist
 export ADD_HOOKS="self-updater.hook"
 export UPINFO="gh-releases-zsync|${GITHUB_REPOSITORY%/*}|${GITHUB_REPOSITORY#*/}|latest|*$ARCH.AppImage.zsync"
 export ICON=https://github.com/linuxmint/mint-y-icons/blob/master/usr/share/icons/Mint-Y/legacy/512/document-open.png
-export DESKTOP=./launcher.desktop
+export DESKTOP=DUMMY
+export MAIN_BIN=pikeru
 export URUNTIME_PRELOAD=1
 # Deploy dependencies
 quick-sharun \
