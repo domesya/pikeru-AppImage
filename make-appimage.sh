@@ -14,11 +14,10 @@ export MAIN_BIN=pikeru
 export URUNTIME_PRELOAD=1
 # Deploy dependencies
 
-# wth
-mkdir -p "${HOME}/.local/state"
 
 quick-sharun \
-  /usr/bin/pikeru 
+  /usr/bin/pikeru \
+  /usr/lib/libxkbcommon-x11.so
 
 quick-sharun --make-static-bin  /usr/lib/xdg-desktop-portal-pikeru
 
