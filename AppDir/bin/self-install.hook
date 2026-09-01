@@ -15,18 +15,29 @@ _systemd_service_file="${CONFIGDIR}/systemd/user/xdg-desktop-portal-pikeru.servi
 _dbus_service_file="${DATADIR}/dbus-1/services/org.freedesktop.impl.portal.desktop.pikeru.service"
 _state_file="${STATEDIR}/.pikeru-installed"
 
-_pikeru_install() {
-    mkdir -p "${BINDIR}"
-    mkdir -p "${STATEDIR}"
-    mkdir -p "${CONFIGDIR}/systemd/user"
-    mkdir -p "${DATADIR}/dbus-1/services"
-    mkdir -p "${DATADIR}/xdg-desktop-portal/portals"
-    
-    cp "${APPDIR}/bin/xdg-desktop-portal-pikeru"   "$_portal_bin"
-    cp "${APPDIR}/share/xdg-desktop-portal/portals/pikeru.portal"  "$_dot_portal"
-    cp -r "${APPDIR}/share/xdg-desktop-portal-pikeru/"  "$_pikeru_dir"
+_prepare() {
+  case "$1" in
+    all)
+      mkdir -p "${BINDIR}"
+      mkdir -p "${STATEDIR}"
+      mkdir -p "${CONFIGDIR}/systemd/user"
+      mkdir -p "${DATADIR}/dbus-1/services"
+      mkdir -p "${DATADIR}/xdg-desktop-portal/portals"
+      ;;
+    state)
+      mkdir -p "${STATEDIR}"
+      ;;
+  esac
+}
 
-    cat > "$_systemd_service_file" <<-EOF
+_pikeru_install() {
+  
+  
+  cp "${APPDIR}/bin/xdg-desktop-portal-pikeru"   "$_portal_bin"
+  cp "${APPDIR}/share/xdg-desktop-portal/portals/pikeru.portal"  "$_dot_portal"
+  cp -r "${APPDIR}/share/xdg-desktop-portal-pikeru/"  "$_pikeru_dir"
+  
+   cat > "$_systemd_service_file" <<-EOF
 [Unit]
 Description=Portal service (Pikeru implementation)
 Before=xdg-desktop-portal.service
@@ -42,7 +53,7 @@ EOF
 
 # Assuming pikeru AppImage is in ~/.local/bin/pikeru
 
-    cat > "$_dbus_service_file" <<-EOF
+  cat > "$_dbus_service_file" <<-EOF
 [D-BUS Service]
 Name=org.freedesktop.impl.portal.desktop.pikeru
 Exec=%h/.local/bin/pikeru
@@ -75,10 +86,12 @@ The following files/directories would be installed/altered:
 
 EOF
     )"; then
+      _prepare all
       _pikeru_install
       _change_config
       : > "$_state_file"
     else
+      _prepare state
       : > "$_state_file"
     fi
   fi
