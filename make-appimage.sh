@@ -14,9 +14,10 @@ export MAIN_BIN=pikeru
 export URUNTIME_PRELOAD=1
 # Deploy dependencies
 quick-sharun \
-  /usr/bin/zenity \
-  /usr/bin/pikeru \
-  /usr/lib/xdg-desktop-portal-pikeru
+#  /usr/bin/zenity \
+  /usr/bin/pikeru 
+
+quick-sharun --make-static-bin  /usr/lib/xdg-desktop-portal-pikeru
 
 # Additional changes can be done in between here
 

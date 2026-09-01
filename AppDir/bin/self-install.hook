@@ -3,24 +3,29 @@
 #  This hook is meant to install pikeru into the system its being ran on
 #
 
+
+
 # _portal_bin is a special portal binary that's needed for the dbus service(?)
 _portal_bin="${BINDIR}/xdg-desktop-portal-pikeru"
 _dot_portal="${DATADIR}/xdg-desktop-portal/portals/pikeru.portal"
 _pikeru_dir="${DATADIR}/xdg-desktop-portal-pikeru"
 _config_file="${CONFIGDIR}/xdg-desktop-portal-pikeru/config"
 _portals_conf="${CONFIGDIR}/xdg-desktop-portal/portals.conf"
-_service_file="${CONFIGDIR}/systemd/user/xdg-desktop-portal-pikeru.service"
+_systemd_service_file="${CONFIGDIR}/systemd/user/xdg-desktop-portal-pikeru.service"
+_dbus_service_file="${DATADIR}/dbus-1/services/org.freedesktop.impl.portal.desktop.pikeru.service"
+_state_file="${CACHEDIR}/.pikeru-installed"
 
 _pikeru_install() {
     mkdir -p "${BINDIR}"
     mkdir -p "${DATADIR}/xdg-desktop-portal/portals"
     mkdir -p "${CONFIGDIR}/systemd/user"
+    mkdir -p "${DATADIR}/dbus-1/services"
     
-    cp "${APPDIR}/shared/bin/xdg-desktop-portal-pikeru"   "$_portal_bin"
+    cp "${APPDIR}/bin/xdg-desktop-portal-pikeru"   "$_portal_bin"
     cp "${APPDIR}/share/xdg-desktop-portal/portals/pikeru.portal"  "$_dot_portal"
     cp -r "${APPDIR}/share/xdg-desktop-portal-pikeru/"  "$_pikeru_dir"
 
-    cat > "$_service_file" <<-EOF
+    cat > "$_systemd_service_file" <<-EOF
 [Unit]
 Description=Portal service (Pikeru implementation)
 Before=xdg-desktop-portal.service
@@ -33,16 +38,20 @@ ExecStart=%h/.local/bin/xdg-desktop-portal-pikeru
 [Install]
 WantedBy=default.target
 EOF
+
+# Assuming pikeru AppImage is in ~/.local/bin/pikeru
+
+    cat > "$_dbus_service_file" <<-EOF
+[D-BUS Service]
+Name=org.freedesktop.impl.portal.desktop.pikeru
+Exec=%h/.local/bin/pikeru
+SystemdService=xdg-desktop-portal-pikeru.service
+EOF
     
 }
 
 
-_change_config() {
-  # Assuming that pikeru will be in ~/.local/bin/pikeru
-#   if [ -f "$_config_file" ]; then
-#         
-#   fi
- 
+_change_config() { 
   if [ -f "$_portals_conf" ]; then
     sed -i 's|^\(org\.freedesktop\.impl\.portal\.FileChooser=\).*|\1pikeru|' "$_portals_conf" || :
   fi
@@ -50,12 +59,8 @@ _change_config() {
 
 
 _main_func() {
-    
-  if [ ! -f "$_portal_bin" ] \
-  || [ ! -f "$_dot_portal" ] \
-  || [ ! -d "$_pikeru_dir" ] \
-  || [ ! -f "$_service_file" ]; then
-    zenity --width 500 --question --text "$(cat <<-EOF
+  if [ ! -f "$_state_file" ]; then
+    if notify -dq "$(cat <<-EOF
 Do you wish to attempt to integrate pikeru into the system?
 The following files/directories would be installed/altered:
     
@@ -63,14 +68,26 @@ The following files/directories would be installed/altered:
 * $_dot_portal
 * $_pikeru_dir
 * $_portals_conf
-* $_service_file
+* $_systemd_service_file
+* $_dbus_service_file
     
 EOF
-    )" || return 1
-    _pikeru_install
-    _change_config
+    )"; then
+      _pikeru_install
+      _change_config
+      : > "$_state_file"
+    else
+      : > "$_state_file"
+    fi
   fi
-  
 }
 
 _main_func 
+
+#       if [ ! -f "$_portal_bin" ] \
+#       || [ ! -f "$_dot_portal" ] \
+#       || [ ! -d "$_pikeru_dir" ] \
+#       || [ ! -f "$_service_file" ]; then 
+#         _pikeru_install
+#         _change_config
+#       fi 
