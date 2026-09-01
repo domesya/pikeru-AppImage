@@ -13,13 +13,14 @@ _config_file="${CONFIGDIR}/xdg-desktop-portal-pikeru/config"
 _portals_conf="${CONFIGDIR}/xdg-desktop-portal/portals.conf"
 _systemd_service_file="${CONFIGDIR}/systemd/user/xdg-desktop-portal-pikeru.service"
 _dbus_service_file="${DATADIR}/dbus-1/services/org.freedesktop.impl.portal.desktop.pikeru.service"
-_state_file="${CACHEDIR}/.pikeru-installed"
+_state_file="${STATEDIR}/.pikeru-installed"
 
 _pikeru_install() {
     mkdir -p "${BINDIR}"
-    mkdir -p "${DATADIR}/xdg-desktop-portal/portals"
+    mkdir -p "${STATEDIR}"
     mkdir -p "${CONFIGDIR}/systemd/user"
     mkdir -p "${DATADIR}/dbus-1/services"
+    mkdir -p "${DATADIR}/xdg-desktop-portal/portals"
     
     cp "${APPDIR}/bin/xdg-desktop-portal-pikeru"   "$_portal_bin"
     cp "${APPDIR}/share/xdg-desktop-portal/portals/pikeru.portal"  "$_dot_portal"
@@ -70,7 +71,8 @@ The following files/directories would be installed/altered:
 * $_portals_conf
 * $_systemd_service_file
 * $_dbus_service_file
-    
+* $_state_file    
+
 EOF
     )"; then
       _pikeru_install
