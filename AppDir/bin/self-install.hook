@@ -14,6 +14,15 @@ _systemd_service_file="${CONFIGDIR}/systemd/user/xdg-desktop-portal-pikeru.servi
 _dbus_service_file="${DATADIR}/dbus-1/services/org.freedesktop.impl.portal.desktop.pikeru.service"
 _state_file="${STATEDIR}/.pikeru-installed"
 
+_sanity_check() {
+  if is_cmd "ln" "cp" "mkdir" "pikeru"; then
+    :
+  else
+    err_msg "we're screwed"
+    return 1
+  fi
+}
+
 _prepare() {
   case "$1" in
     all)
@@ -70,7 +79,7 @@ _change_config() {
 
 _main_func() {
   if [ ! -f "$_state_file" ]; then
-    notify -di "Please put a symlink to pikeru AppImage(or the appimage file itself) in "${BINDIR}/pikeru" if you want the appimage install hook to work."
+    notify -di "Please put a symlink to pikeru AppImage(or the appimage file itself) in ${BINDIR}/pikeru if you want the appimage install hook to work.";
     if notify -dq "$(cat <<-EOF
 Do you wish to attempt to integrate pikeru into the system?
 The following files/directories would be installed/altered:
@@ -96,5 +105,6 @@ EOF
   fi
 }
 
+_sanity_check
 _main_func 
 
