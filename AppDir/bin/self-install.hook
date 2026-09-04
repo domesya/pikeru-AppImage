@@ -4,7 +4,6 @@
 #
 
 
-
 # _portal_bin is a special portal binary that's needed for the dbus service(?)
 _portal_bin="${BINDIR}/xdg-desktop-portal-pikeru"
 _dot_portal="${DATADIR}/xdg-desktop-portal/portals/pikeru.portal"
@@ -32,8 +31,7 @@ _prepare() {
 
 _pikeru_install() {
   
-  
-  cp "${APPDIR}/bin/xdg-desktop-portal-pikeru"   "$_portal_bin"
+  ln -sf "${BINDIR}/pikeru"   "$_portal_bin"
   cp "${APPDIR}/share/xdg-desktop-portal/portals/pikeru.portal"  "$_dot_portal"
   cp -r "${APPDIR}/share/xdg-desktop-portal-pikeru/"  "$_pikeru_dir"
   
@@ -72,6 +70,7 @@ _change_config() {
 
 _main_func() {
   if [ ! -f "$_state_file" ]; then
+    notify -di "Please put a symlink to pikeru AppImage(or the appimage file itself) in "${BINDIR}/pikeru" if you want the appimage install hook to work."
     if notify -dq "$(cat <<-EOF
 Do you wish to attempt to integrate pikeru into the system?
 The following files/directories would be installed/altered:
@@ -99,10 +98,3 @@ EOF
 
 _main_func 
 
-#       if [ ! -f "$_portal_bin" ] \
-#       || [ ! -f "$_dot_portal" ] \
-#       || [ ! -d "$_pikeru_dir" ] \
-#       || [ ! -f "$_service_file" ]; then 
-#         _pikeru_install
-#         _change_config
-#       fi 
