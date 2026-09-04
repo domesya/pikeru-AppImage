@@ -12,14 +12,14 @@ export ICON=DUMMY
 export DESKTOP=DUMMY
 export MAIN_BIN=pikeru
 export URUNTIME_PRELOAD=1
+export STARTUPWMCLASS=pikeru
 # Deploy dependencies
 
 
 quick-sharun \
   /usr/bin/pikeru \
-  /usr/lib/libxkbcommon-x11.so
-
-quick-sharun --make-static-bin  /usr/lib/xdg-desktop-portal-pikeru
+  /usr/lib/libxkbcommon-x11.so \
+  /usr/lib/xdg-desktop-portal-pikeru
 
 # Additional changes can be done in between here
 
