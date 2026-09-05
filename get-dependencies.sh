@@ -14,7 +14,7 @@ get-debloated-pkgs --add-common --prefer-nano ffmpeg-mini
 
 # Comment this out if you need an AUR package
 make-aur-package zenity-rs-bin
-#make-aur-package pikeru
+make-aur-package pikeru
 
 # If the application needs to be manually built that has to be done down here
 
@@ -26,16 +26,5 @@ make-aur-package zenity-rs-bin
 # 	regular build steps
 # fi
 
-wget https://raw.githubusercontent.com/dvhar/pikeru/refs/heads/master/PKGBUILD -O ./PKGBUILD
 
-pkgfile="./PKGBUILD"
-version=$(awk -F'=' '
-    $1 == "pkgver" { ver = $2 }
-    $1 == "pkgrel" { rel = $2 }
-    END { print ver "-" rel }
-' "$pkgfile")
-
-echo "$version" > ~/version
-
-make-aur-package ./PKGBUILD
 
