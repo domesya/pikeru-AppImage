@@ -11,6 +11,8 @@ pacman -Syu --noconfirm \
   libxcrypt-compat       \
   libxcursor              \
   libxfixes                \
+  libxi                    \
+  libxext                  \
   libxrender              
 
 echo "Installing debloated packages..."
