@@ -9,7 +9,8 @@ echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
   libxkbcommon-x11       \
   libxcrypt-compat       \
-  libxcursor
+  libxcursor              \
+  libxrender              
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
