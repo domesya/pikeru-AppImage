@@ -21,6 +21,7 @@ quick-sharun \
   /usr/bin/pikeru \
   /usr/lib/libanl.so.1 \
   /usr/lib/libcrypt.so.1 \
+  /usr/lib/libXrender.so.1 \
   /usr/lib/libxkbcommon-x11.so \
   /usr/lib/xdg-desktop-portal-pikeru
 
