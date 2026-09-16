@@ -14,14 +14,6 @@ _systemd_service_file="${CONFIGDIR}/systemd/user/xdg-desktop-portal-pikeru.servi
 _dbus_service_file="${DATADIR}/dbus-1/services/org.freedesktop.impl.portal.desktop.pikeru.service"
 _state_file="${STATEDIR}/.pikeru-installed"
 
-_sanity_check() {
-  if is_cmd "ln" "cp" "mkdir" "pikeru"; then
-    :
-  else
-    err_msg "we're screwed"
-    return 1
-  fi
-}
 
 _prepare() {
   case "$1" in
