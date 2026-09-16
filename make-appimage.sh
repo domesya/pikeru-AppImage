@@ -19,6 +19,7 @@ export STARTUPWMCLASS=pikeru
 
 quick-sharun \
   /usr/bin/pikeru \
+  /usr/lib/libcrypt.so.1 \
   /usr/lib/libxkbcommon-x11.so \
   /usr/lib/xdg-desktop-portal-pikeru
 
