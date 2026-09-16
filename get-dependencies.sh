@@ -10,6 +10,7 @@ pacman -Syu --noconfirm \
   libxkbcommon-x11       \
   libxcrypt-compat       \
   libxcursor              \
+  libxfixes                \
   libxrender              
 
 echo "Installing debloated packages..."
