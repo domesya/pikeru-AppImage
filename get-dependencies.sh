@@ -6,7 +6,7 @@ ARCH=$(uname -m)
 
 echo "Installing package dependencies..."
 echo "---------------------------------------------------------------"
-pacman -Syu --noconfirm libxkbcommon-x11 
+pacman -Syu --noconfirm libxkbcommon-x11 libxcrypt-compat
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
