@@ -19,10 +19,13 @@ export STARTUPWMCLASS=pikeru
 
 quick-sharun \
   /usr/bin/pikeru \
-  /usr/lib/libanl.so.1 \
-  /usr/lib/libcrypt.so.1 \
-  /usr/lib/libXrender.so.1 \
-  /usr/lib/libxkbcommon-x11.so \
+  /usr/lib/libXi.so* \
+  /usr/lib/libanl.so* \
+  /usr/lib/libXext.so* \
+  /usr/lib/libcrypt.so* \
+  /usr/lib/libXfixes.so*  \
+  /usr/lib/libXrender.so* \
+  /usr/lib/libxkbcommon-x11.so* \
   /usr/lib/xdg-desktop-portal-pikeru
 
 # Additional changes can be done in between here
