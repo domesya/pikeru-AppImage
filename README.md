@@ -24,7 +24,7 @@
 ---
 
 Some manual tweaks that need to be done in order to have pikeru AppImage working as the file picker:
-- Put pikeru's path in ~/.config/xdg-desktop-portal-pikeru/config, example here:
+- Put pikeru-wrapper.sh path in ~/.config/xdg-desktop-portal-pikeru/config, example here:
 ```
 ...
 [filepicker]
