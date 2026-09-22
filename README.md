@@ -28,12 +28,13 @@ Some manual tweaks that need to be done in order to have pikeru AppImage working
 ```
 ...
 [filepicker]
-cmd = /var/home/domes/.local/bin/pikeru
+cmd = /var/home/domes/.local/share/xdg-desktop-portal-pikeru/pikeru-wrapper.sh
 ...
 ```
 
 - Set up the services:
 ```
+ systemctl --user daemon-reload
  systemctl --user --now enable xdg-desktop-portal-pikeru.service
  systemctl --user restart xdg-desktop-portal.service
 ```
