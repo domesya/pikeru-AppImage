@@ -97,6 +97,5 @@ EOF
   fi
 }
 
-_sanity_check
 _main_func 
 
